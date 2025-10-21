@@ -6,20 +6,6 @@ require('RestClient.php');
 $tasks_buffer = array();
 $limit = 10;
 $depth = 1;
-$filters = [
-            ["keyword_info.search_volume", ">", 20], 
-            "AND",
-            ["keyword_info.search_volume", "<=", 10000],     
-            "AND",
-            ["keyword_info.cpc", ">", 0], 
-            "AND",
-            ["keyword_info.keyword_length", ">=", 2],
-            "AND",
-            ["keyword_info.keyword_length", "<=", 4],
-            "AND",
-            ["keyword_info.competition_level", "not_regex", "null"] 
-    ];
-
         $envPath = dirname(dirname(__DIR__)) . '/env/data-for-seo-env.php';
 
         if (!file_exists($envPath)) 
@@ -45,7 +31,19 @@ $filters = [
                 "include_seed_keyword"=> false,
                 "include_clickstream_data"=>false,
                 "replace_with_core_keyword"=>true,
-                "filters" => $filters,
+                "filters" => [
+                                    ["keyword_info.search_volume", ">", 20], 
+                                    "AND",
+                                    ["keyword_info.search_volume", "<=", 10000],     
+                                    "AND",
+                                    ["keyword_info.cpc", ">", 0], 
+                                    "AND",
+                                    ["keyword_info.keyword_length", ">=", 2],
+                                    "AND",
+                                    ["keyword_info.keyword_length", "<=", 4],
+                                    "AND",
+                                    ["keyword_info.competition_level", "not_regex", "null"] 
+                            ],
                 "depth"=>$depth,
                 "ignore_synonyms"=>false,
                 "limit" => $limit
